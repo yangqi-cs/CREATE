@@ -7,8 +7,10 @@
 ## Introduction
 CREATE leverages the strengths of <ins>C</ins>onvolutional and <ins>R</ins>ecurrent Neural N<ins>E</ins>tworks, combined with <ins>A</ins>ttention mechanisms, for efficient <ins>T</ins>ransposable <ins>E</ins>lements classification.
 
+CREATE leverages the strengths of **C**onvolutional and **R**ecurrent Neural N**E**tworks, combined with **A**ttention mechanisms, for efficient **T**ransposable **E**lements classification.
+
 <div align=center>
-<img src="https://github.com/yangqi-cs/CREATE/assets/26338653/39134c71-85a5-4819-9e76-2f702e72504a" width="60%">
+<img src="https://github.com/yangqi-cs/CREATE/assets/26338653/39134c71-85a5-4819-9e76-2f702e72504a" width="80%">
 </div>
 
 ## Citation
