@@ -27,7 +27,7 @@ conda activate CREATE_env
 #### 3. (Optional) Download the Pre-trained Model Directory
  
 If you need the pre-trained model directory, download it from one of the following sources: <br>
-- **Google driver:**  [model.tar.gz](https://drive.google.com/file/d/1OWzmD5sMM7kAJjKmq0LS3HibqzNVFThe/view?usp=sharing) <br>
+- **Google drive:**  [model.tar.gz](https://drive.google.com/file/d/1OWzmD5sMM7kAJjKmq0LS3HibqzNVFThe/view?usp=sharing) <br>
 - **Tencent cloud drive:** [model.tar.gz](https://share.weiyun.com/WNjtZPId)
 
 After downloading, extract the model files into the ./model directory:
