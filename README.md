@@ -67,12 +67,12 @@ Test trained models for TE classification. Available options:
 
 To train a model for a specific TE group dataset (the sequence names in the input FASTA file must follow the format: <ins>ID|Class@Sub_class@Order@Superfamily|Species_type</ins>), use the following command:
 ```
-python create_train.py -i ./model_data/SINE.fasta -m SINE
+python create_train.py -i ./demo_data/SINE.fasta -m SINE
 ```
 
 Alternatively, if your FASTA data is comprehensive and covers multiple TE families, you can train models according to the hierarchical classification structure of TEs using the command below:
 ```
-python create_train.py -i ./model_data/all_te.fasta  -sr -sm
+python create_train.py -i ./demo_data/all_te.fasta  -sr -sm
 ```
 <sub> **NOTE:** The primary difference between these two commands is the -m option (TE model name). If the -m option is omitted, as in the second command, the FASTA file will first be divided into separate files based on family labels. Subsequently, the classification models will be trained following the hierarchical classification structure of TEs. </sub>
 
@@ -81,7 +81,7 @@ python create_train.py -i ./model_data/all_te.fasta  -sr -sm
 
 To evaluate the performance of trained models on a new dataset, use the following command:
 ```
-python create_test.py -i ./model_data/test_data.fasta -d ./model/
+python create_test.py -i ./demo_data/test_data.fasta -d ./model/
 ```
 
 ## FAQs
