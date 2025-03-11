@@ -87,9 +87,9 @@ python create_test.py -i ./demo_data/test_data.fasta -d ./model/
 ## FAQs
 Q: When executing the command ```conda env create -f env.yml```, you may encounter the following error "CondaEnvException: Pip failed."
 
-> **Solution 1 (Modify the index URL):** 1) Open the ```env.yml``` file and uncomment (remove the # symbol) the line that starts with --index-url. 2) Recreate the virtual environment using the following command: ```conda env create -f env.yml```
+> **Solution 1 (Modify the index URL):** (1) Open the ```env.yml``` file and uncomment (remove the # symbol) the line that starts with --index-url. (2) Recreate the virtual environment using the following command: ```conda env create -f env.yml```.
 > 
-> **Solution 2 (Address pip and TensorFlow issues):** 1) Open the ```env.yml``` file and comment out the following lines (add a # symbol at the beginning of the lines): ```- pip:``` and ```- tensorflow-gpu==2.4.0```. 2) Create the virtual environment: ```conda env create -f env.yml``` 3) Activate the virtual environment: ```conda activate CREATE_env``` 4) Manually install the tensorflow-gpu package: ```pip install tensorflow-gpu==2.4.0```
+> **Solution 2 (Address pip and TensorFlow issues):** (1) Open the ```env.yml``` file and comment out the following lines (add a # symbol at the beginning of the lines): ```- pip:``` and ```- tensorflow-gpu==2.4.0```. (2) Create the virtual environment: ```conda env create -f env.yml```. (3) Activate the virtual environment: ```conda activate CREATE_env```. (4) Manually install the tensorflow-gpu package: ```pip install tensorflow-gpu==2.4.0```.
 
 ## Author
 Copyright (C) 2025 **Yang Qi** (yang.qi@mail.nwpu.edu.cn)
