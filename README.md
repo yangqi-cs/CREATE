@@ -40,32 +40,33 @@ tar -zxvf model.tar.gz ./model
 - #### create_train.py
 Train models for TE classification. Available options:
 ```
--h, --help                  Display this help message and exit.
--i, --input_file            Path to the input training sequences file.
--o, --output_dir            Directory to save the output files.
--m, --model_name            Specify the TE model for training.
--k, --k_mer                 Size of k-mers for feature extraction in CNN model.
--l, --seq_len               Length of the sequences extracted from both ends for RNN model.
--sr, --save_res             Whether to save predicted probabilities and classification report.
--sm, --save_model           Whether to save the trained model.
+-h, --help                  Display this help message and exit
+-i, --input_file            Path to the input training sequences file
+-o, --output_dir            Directory to save the output files
+-m, --model_name            Specify the TE model for training
+-k, --k_mer                 Size of k-mers for feature extraction in CNN model
+-l, --seq_len               Length of the sequences extracted from both ends for the RNN model
+-sr, --save_res             Whether to save predicted probabilities and classification report
+-sm, --save_model           Whether to save the trained model
 ```
 - #### create_test.py
 Test trained models for TE classification. Available options:
 ```
--h, --help                  Display this help message and exit.
--i, --input_file            Path to the input test sequences file.
--d, --model_dir             Directory containing trained models for classification.
--p, --prob_thr              Probability threshold for classifying a TE into a specific model.
--o, --output_dir            Directory to save the output files (default: current directory).
--k, --k_mer                 Size of k-mers for feature extraction in CNN model.
--l, --seq_len               Length of the sequences extracted from both ends for RNN model.
+-h, --help                  Display this help message and exit
+-i, --input_file            Path to the input test sequences file
+-d, --model_dir             Directory containing trained models for classification
+-p, --prob_thr              Probability threshold for classifying a TE into a specific model
+-o, --output_dir            Directory to save the output files (default: current directory)
+-k, --k_mer                 Size of k-mers for feature extraction in CNN model
+-l, --seq_len               Length of the sequences extracted from both ends for the RNN model
 ```
 
 ## Examples
+By default, CREATE is designed to run on <ins>**GPU**</ins> rather than CPU. If you want to specify a particular GPU, please modify the ```create_train.py``` or ```create_test.py``` scripts by updating ```os.environ["CUDA_VISIBLE_DEVICES"] = "specific_gpu_index"``` before running the program. Replace ```"specific_gpu_index"``` with the target GPU ID (e.g., "0" for the first GPU).
 
 - #### Training the Model
 
-To train a model for a specific TE group dataset (the sequence names in the input FASTA file must follow the format: <ins>ID|Class@Sub_class@Order@Superfamily|Species_type</ins>), use the following command:
+To train a model for a specific TE group dataset (the sequence names in the input FASTA file must follow the format: ```ID|Class@Sub_class@Order@Superfamily|Species_type```), use the following command:
 ```
 python create_train.py -i ./demo_data/SINE.fasta -m SINE
 ```
@@ -79,7 +80,9 @@ python create_train.py -i ./demo_data/all_te.fasta  -sr -sm
 
 - #### Testing the Model
 
-To evaluate the performance of trained models on a new dataset, use the following command:
+The testing phase automatically performs the hierarchical classification process. Ensure that your test set contains only TE sequences and that the sequence names follow the format: ```TE_type#Description``` (e.g., ```Gypsy#Os0016_LTR|LTR/Gypsy```). If you are unsure whether your test set is a high-quality TE collection,  we strongly recommend first training a classifier to distinguish TEs from non-TEs based on your data type. You can then apply the specific TE model to predict the types of the identified TE sequences.
+
+To evaluate the performance of the trained models on a new dataset, use the following command:
 ```
 python create_test.py -i ./demo_data/test_data.fasta -d ./model/
 ```
