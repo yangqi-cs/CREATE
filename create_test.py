@@ -21,7 +21,7 @@ def get_parsed_args():
                         required = True, help="Directory containing trained models for classification.")
     parser.add_argument("-p", "--prob_thr", dest="prob_thr", type=float, default=0.90, 
                         help="Probability threshold for classifying a TE into a specific model.")
-    parser.add_argument("-o", "--output_dir", dest="output_dir", default="./",
+    parser.add_argument("-o", "--output_dir", dest="output_dir", default="./test_outputs/",
                         required = False, help="Directory to save the output files (default: current directory).")
     parser.add_argument("-k", "--k_mer", dest="k_mer", type=int, default=7,
                         required = False, help="Size of k-mers for feature extraction in CNN model.")
@@ -43,7 +43,7 @@ def main():
     l = int(args.seq_len)
 
 
-    temp_res_dir = output_dir + "/temp/"
+    temp_res_dir = output_dir + "/temp_prob/"
     if not os.path.exists(temp_res_dir):
         os.makedirs(temp_res_dir)
 
@@ -58,7 +58,7 @@ def main():
     print("\t2) Transfer fasta data into one-hot encoding ...")
     X_oh = get_oh_data(input_file, l)
 
-    print("\nStep 2: Predict the probability for test sequences, the details are stored in the output_dir/temp/ dictionary ...")
+    print("\nStep 2: Predict the probability for test sequences ...")
     model_name_list =  [node for node in get_parent_nodes() if node not in ["Sub1", "Sub2"]]
 
     for model_name in model_name_list:
@@ -74,25 +74,25 @@ def main():
         res.columns = get_labels(model_name)
         res.to_csv(f"{temp_res_dir}/{model_name}_pred_prob.txt", sep="\t", header=True)
 
-    print("\nStep 3: Calculate the hierarchical classification results and update the fasta file ...")
+    print("\nStep 3: Calculate the hierarchical classification results and relabel the fasta file ...")
     true_labels = []
     for record in SeqIO.parse(input_file, "fasta"):
         true_label = record.id.split("#")[0]
         true_labels.append(true_label)
 
     hi_res, pred_labels = hi_classify(true_labels, prob_thr, temp_res_dir)
-    print(f"hP={hi_res.hierarchical_precision} hR={hi_res.hierarchical_recall} hF={hi_res.hierarchical_f1}")
+    print(f"hP={hi_res.hierarchical_precision}\nhR={hi_res.hierarchical_recall}\nhF={hi_res.hierarchical_f1}")
     
     records = []
     idx = 0
     for record in SeqIO.parse(input_file, "fasta"):
         record.description = f"{pred_labels[idx]}\t{record.description}"
-        record.id = record.description
+        record.id = ""
         records.append(record)
         idx += 1
     
     # Use FastIO method to write the fasta sequence in a single line
-    new_data_file = f"{output_dir}/CREATE_pred.fasta"
+    new_data_file = f"{output_dir}/relabeled_seqs.fasta"
     out_handle = FastaIO.FastaWriter(new_data_file, wrap=None)
     out_handle.write_file(records)
     return 0

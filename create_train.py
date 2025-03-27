@@ -18,7 +18,7 @@ def get_parsed_args():
 
     parser.add_argument("-i", "--input_file", dest="input_file",
                         required = True, help="Path to the input training sequences file.")
-    parser.add_argument("-o", "--output_dir", dest="output_dir", default="./", 
+    parser.add_argument("-o", "--output_dir", dest="output_dir", default="./train_outputs/", 
                         required = False, help="Directory to save the output files.")
     parser.add_argument("-m", "--model_name", dest="model_name", default=None, 
                         choices = ["All", "SINE", "ERV", "LINE", "Non-LTR", "TIR", "LTR", "ClassII", "ClassI", "TE"],
@@ -66,7 +66,7 @@ def train_model(model_name, k, l, data_file, output_dir, save_res, save_model):
 
     # Save result
     if save_res:
-        res_output_dir = f"{output_dir}/res/"
+        res_output_dir = f"{output_dir}/pred_reports/"
         if not os.path.exists(res_output_dir):
             os.mkdir(res_output_dir)
         res = np.hstack((y_test, model.predict([X_kmer_test, X_oh_test])))
@@ -79,7 +79,7 @@ def train_model(model_name, k, l, data_file, output_dir, save_res, save_model):
     
     # Save model
     if save_model:
-        model_output_dir = f"{output_dir}/model/"
+        model_output_dir = f"{output_dir}/trained_models/"
         if not os.path.exists(model_output_dir):
             os.mkdir(model_output_dir)
         model.save(f"{model_output_dir}/{model_name}")    
@@ -111,7 +111,7 @@ def main():
     elif args.model_name == "All":
             print("Step 0: Divide the fasta data into different dataset by TE model name ...")
             model_name_list =  [node for node in get_parent_nodes() if node not in ["Sub1", "Sub2"]]
-            model_data_dir = f"{output_dir}/model_data"
+            model_data_dir = f"{output_dir}/temp_data"
             if not os.path.exists(model_data_dir):
                 os.mkdir(model_data_dir)
             split_data_by_label(model_name_list, input_file, model_data_dir)
@@ -131,7 +131,7 @@ def main():
         if in_con == "y" or in_con == "Y":
             print("Step 0: Divide the fasta data into different dataset by TE model name ...")
             model_name_list =  [node for node in get_parent_nodes() if node not in ["Sub1", "Sub2"]]
-            model_data_dir = f"{output_dir}/model_data"
+            model_data_dir = f"{output_dir}/temp_data"
             if not os.path.exists(model_data_dir):
                 os.mkdir(model_data_dir)
             split_data_by_label(model_name_list, input_file, model_data_dir)
