@@ -4,7 +4,7 @@
 CREATE leverages the advantages of <ins>**C**</ins>onvolutional neural networks and <ins>**R**</ins>ecurrent Neural N<ins>**E**</ins>tworks, combined with an <ins>**A**</ins>ttention mechanism, for efficient hierarchical classification of <ins>**T**</ins>ransposable <ins>**E**</ins>lements (TEs).
 
 <div align=center>
-<img src="https://github.com/user-attachments/assets/23b713f8-bd15-4a88-a110-3af77f4a0ed9" width="80%">
+<img src="https://github.com/user-attachments/assets/d2dd69f7-2dc0-4670-9af3-8c8c5f120de8" width="80%">
 </div>
 
 ## Installation
